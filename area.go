@@ -27,11 +27,17 @@ func (area *Area) Clear() {
 
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
+	area.UpdateWithFixed(content, 0)
+}
+
+// UpdateWithFixed overwrites the content of the Area.
+func (area *Area) UpdateWithFixed(content string, fixed int) {
 	area.Clear()
 	lines := strings.Split(content, "\n")
 
 	fmt.Println(strings.Repeat("\n", len(lines)-1)) // This appends space if the terminal is at the bottom
-	Up(len(lines))
+	n := len(lines) + fixed
+	Up(n)
 
 	if runtime.GOOS == "windows" {
 		for _, line := range lines {
@@ -45,9 +51,5 @@ func (area *Area) Update(content string) {
 	}
 	height = 0
 
-	area.height = len(lines)
-}
-
-func (area *Area) Down(n int) {
-	Down(n)
+	area.height = n
 }
