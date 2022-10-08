@@ -47,3 +47,7 @@ func (area *Area) Update(content string) {
 
 	area.height = len(lines)
 }
+
+func (area *Area) Down(n int) {
+	Down(n)
+}
