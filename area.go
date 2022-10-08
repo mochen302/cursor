@@ -27,11 +27,11 @@ func (area *Area) Clear() {
 
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
-	area.UpdateWithFixed(content, 0)
+	area.UpdateWithFixed(content, false, 0)
 }
 
 // UpdateWithFixed overwrites the content of the Area.
-func (area *Area) UpdateWithFixed(content string, fixed int) {
+func (area *Area) UpdateWithFixed(content string, updateHeight bool, fixed int) {
 	area.Clear()
 	lines := strings.Split(content, "\n")
 
@@ -51,5 +51,9 @@ func (area *Area) UpdateWithFixed(content string, fixed int) {
 	}
 	height = 0
 
-	area.height = n
+	if updateHeight {
+		area.height = n
+	} else {
+		area.height = n - fixed
+	}
 }
